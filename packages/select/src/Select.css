@@ -1,13 +1,10 @@
-.sol-select {
+.sol-select-area {
   box-sizing: border-box;
 
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  padding-left: 8px;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding: 0;
 
   position: relative;
   height: 38px;
@@ -23,25 +20,59 @@
   border: 1px solid #B3B3B3;
 }
 
-.sol-select.disabled {
+.sol-select-area.disabled {
   background: #F2F2F2;
   border: 1px solid #E6E6E6;
 }
 
-.sol-select.focused {
+.sol-select-area.focused {
   background: #FFFFFF;
   border: 1px solid #2684FF;
 }
 
-.sol-select input {
+.sol-select-area input {
   max-width: 100%;
   height: 100%;
   outline: none;
 }
 
-.sol-select input::placeholder {
+.sol-select-area input::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+}
+
+.sol-select-value {
+  padding: 9px 8px;
+
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sol-select-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 100%;
+  flex-grow: 0;
+  align-self: stretch;
+}
+
+.sol-select-indicator:before {
+  content: '';
+  height: 22px;
+  width: 1px;
+  background: #CCCCCC;
+  margin: auto;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
 }

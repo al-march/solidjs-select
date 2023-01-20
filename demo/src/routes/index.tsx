@@ -7,8 +7,9 @@ export default function Home() {
         Select ui component
       </h1>
 
-      <section class="w-[400px] mx-auto">
-        <SolSelect placeholder="placeholder"></SolSelect>
+      <section class="w-[400px] mx-auto flex flex-col gap-2">
+        <SolSelect placeholder="Placeholder"></SolSelect>
+        <SolSelect placeholder="Disabled" disabled></SolSelect>
       </section>
     </main>
   );
