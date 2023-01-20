@@ -8,7 +8,15 @@ export default function Home() {
       </h1>
 
       <section class="w-[400px] mx-auto flex flex-col gap-2">
-        <SolSelect placeholder="Placeholder"></SolSelect>
+        <SolSelect placeholder="Placeholder">
+          <SolSelect.Option value="One">One</SolSelect.Option>
+          <SolSelect.Option value="Two">Two</SolSelect.Option>
+          <SolSelect.Option value="Three">Three</SolSelect.Option>
+          <SolSelect.Option value="Four">Four</SolSelect.Option>
+          <SolSelect.Option value="Five">Five</SolSelect.Option>
+          <SolSelect.Option value="Six">Six</SolSelect.Option>
+          <SolSelect.Option value="Seven">Seven</SolSelect.Option>
+        </SolSelect>
         <SolSelect placeholder="Disabled" disabled></SolSelect>
       </section>
     </main>

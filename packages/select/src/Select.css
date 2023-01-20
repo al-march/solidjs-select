@@ -76,3 +76,47 @@
   top: 0;
   bottom: 0;
 }
+
+.sol-select-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+
+  background: #FCFCFC;
+  box-shadow: 0 0 8px rgba(34, 34, 34, 0.1);
+  border-radius: 16px;
+}
+
+.sol-select-dropdown-options {
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 100%;
+}
+
+.sol-select-option {
+  background: #FCFCFC;
+  border-radius: 6px;
+  width: 100%;
+  min-height: 34px;
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all .3s ease;
+}
+
+.sol-select-option:hover {
+  cursor: pointer;
+  background: #D6F0FF;
+}
+
+.sol-select-option:active {
+  background: #A3DDFF;
+}
