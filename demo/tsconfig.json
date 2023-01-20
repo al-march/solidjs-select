@@ -11,7 +11,8 @@
     "types": ["solid-start/env"],
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@sol-select": ["../packages/select/src/index.ts"]
     }
   }
 }
