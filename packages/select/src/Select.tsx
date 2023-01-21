@@ -26,16 +26,19 @@ type SolSelectState = {
 
   selectRef?: HTMLElement;
   inputRef?: HTMLInputElement;
+  dropdownRef?: HTMLInputElement;
 };
 
 type SolSelectActions = {
-  checkOption: (v: string) => void;
+  select: (v: string) => void;
   reset: () => void;
 };
 
 type SolSelectProps = {
   placeholder?: string;
   disabled?: boolean;
+
+  onSelect?: (v: string) => void;
   onOpen?: () => void;
   onClose?: () => void;
 } & JSX.HTMLAttributes<HTMLDivElement>;
@@ -50,6 +53,7 @@ const Select = (props: SolSelectProps) => {
     'onBlur',
     'onClick',
 
+    'onSelect',
     'onOpen',
     'onClose',
 
@@ -64,7 +68,9 @@ const Select = (props: SolSelectProps) => {
     focused: false,
     disabled: !!local.disabled,
 
-    opened: false,
+    get opened() {
+      return this.focused;
+    },
     get closed() {
       return !this.opened;
     },
@@ -74,7 +80,6 @@ const Select = (props: SolSelectProps) => {
 
   function onFocus(e: PropFocusEvent<HTMLInputElement>) {
     setState('focused', true);
-    setState('opened', true);
 
     if (typeof local.onFocus === 'function') {
       local.onFocus(e);
@@ -82,8 +87,12 @@ const Select = (props: SolSelectProps) => {
   }
 
   function onBlur(e: PropFocusEvent<HTMLInputElement>) {
-    setState('focused', false);
+    if (isPartOfDropdown(e.relatedTarget)) {
+      e.preventDefault();
+      return;
+    }
 
+    setState('focused', false);
     if (typeof local.onBlur === 'function') {
       local.onBlur(e);
     }
@@ -93,22 +102,33 @@ const Select = (props: SolSelectProps) => {
     state.inputRef?.focus();
   }
 
-  function checkOption(v: string) {
+  function select(v: string) {
     const set = new Set<string>();
     set.add(v);
     setState('value', set);
-    setState('opened', false);
+    focusInput();
+
+    if (typeof local.onSelect === 'function') {
+      local.onSelect(v);
+    }
   }
 
   function reset() {
     setState('value', new Set());
   }
 
+  function isPartOfDropdown(el: unknown) {
+    if (el instanceof HTMLElement) {
+      return state.dropdownRef?.contains(el);
+    }
+    return false;
+  }
+
   return (
     <SolSelectCtx.Provider
       value={{
         state,
-        checkOption,
+        select,
         reset,
       }}
     >
@@ -148,6 +168,7 @@ const Select = (props: SolSelectProps) => {
       </SelectArea>
 
       <Dropdown
+        ref={el => setState('dropdownRef', el)}
         trigger={state.selectRef}
         show={state.opened}
         onOpen={local.onOpen}

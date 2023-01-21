@@ -15,8 +15,10 @@ export const Option = (props: Props) => {
     'classList',
   ]);
 
-  function check() {
-    ctx.checkOption(local.value);
+  function check(e: Event) {
+    console.log(e);
+    e.preventDefault();
+    ctx.select(local.value);
   }
 
   return (

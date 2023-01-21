@@ -36,6 +36,10 @@
   outline: none;
 }
 
+.sol-select-area input:disabled {
+  background: inherit;
+}
+
 .sol-select-area input::placeholder {
   font-style: normal;
   font-weight: 400;
