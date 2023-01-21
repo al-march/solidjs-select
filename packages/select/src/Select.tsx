@@ -106,15 +106,17 @@ const Select = (props: SolSelectProps) => {
   }
 
   function select(v: string) {
-    const set = new Set<string>();
-    set.add(v);
-    setState('value', set);
+    let set = new Set<string>();
 
     if (local.multiple) {
+      set = new Set(state.value);
       focusInput();
     } else {
       state.inputRef?.blur();
     }
+
+    set.add(v);
+    setState('value', set);
 
     if (typeof local.onSelect === 'function') {
       local.onSelect(v);
@@ -200,6 +202,7 @@ const Select = (props: SolSelectProps) => {
         ref={el => setState('dropdownRef', el)}
         trigger={state.selectRef}
         show={state.opened}
+        value={selected}
         onOpen={local.onOpen}
         onClose={local.onClose}
       >

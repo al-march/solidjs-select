@@ -1,10 +1,13 @@
 import {createPopper} from '../hooks';
-import {Placement} from '@popperjs/core';
+import {Instance, Placement} from '@popperjs/core';
 import {
+  Accessor,
   createEffect,
   createSignal,
   JSX,
   mergeProps,
+  on,
+  onCleanup,
   Show,
   splitProps,
 } from 'solid-js';
@@ -17,6 +20,7 @@ type Props = {
   onClose?: () => void;
   placement?: Placement;
   offset?: [number, number];
+  value: Accessor<any>;
 } & JSX.HTMLAttributes<HTMLDivElement>;
 
 type PropsDefault = Required<
@@ -40,11 +44,13 @@ export const Dropdown = (props: Props) => {
     'placement',
     'offset',
     'trigger',
+    'value',
     'class',
     'classList',
     'children',
   ]);
 
+  let instance: () => Instance | undefined;
   const [show, setShow] = createSignal(local.show);
   const [trigger, setTrigger] = createSignal(local.trigger);
   const [dropdown, setRef] = createSignal<HTMLElement>();
@@ -68,8 +74,21 @@ export const Dropdown = (props: Props) => {
     }
   }, local.placement);
 
+  /* Listen changes of value for Popper autoupdate */
+  createEffect(
+    on(props.value, () => {
+      const popper = instance?.();
+      popper?.forceUpdate();
+    })
+  );
+
+  onCleanup(() => {
+    const popper = instance?.();
+    popper?.destroy();
+  });
+
   function initPopper() {
-    createPopper(trigger, dropdown, {
+    instance = createPopper(trigger, dropdown, {
       placement: local.placement,
       modifiers: [
         {

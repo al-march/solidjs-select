@@ -1,5 +1,5 @@
 import {Badge} from './Badge';
-import {For, Match, Switch} from 'solid-js';
+import {createMemo, For, Match, Show, Switch} from 'solid-js';
 
 type Props = {
   multiple?: boolean;
@@ -9,18 +9,22 @@ type Props = {
 };
 
 export const SelectValue = (props: Props) => {
+  const hasValue = createMemo(() => props.values.length);
+
   return (
-    <Switch>
-      <Match when={!props.multiple} keyed>
-        <span>{props.values[0]}</span>
-      </Match>
-      <Match when={props.multiple} keyed>
-        <For each={props.values}>
-          {value => (
-            <Badge onRemove={() => props.onRemove?.(value)}>{value}</Badge>
-          )}
-        </For>
-      </Match>
-    </Switch>
+    <Show when={hasValue()} keyed>
+      <Switch>
+        <Match when={!props.multiple} keyed>
+          <span>{props.values[0]}</span>
+        </Match>
+        <Match when={props.multiple} keyed>
+          <For each={props.values}>
+            {value => (
+              <Badge onRemove={() => props.onRemove?.(value)}>{value}</Badge>
+            )}
+          </For>
+        </Match>
+      </Switch>
+    </Show>
   );
 };
