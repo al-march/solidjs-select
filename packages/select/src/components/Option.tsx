@@ -16,7 +16,6 @@ export const Option = (props: Props) => {
   ]);
 
   function check(e: Event) {
-    console.log(e);
     e.preventDefault();
     ctx.select(local.value);
   }

@@ -52,6 +52,8 @@ export const Dropdown = (props: Props) => {
   createEffect(() => {
     if (local.show) {
       setShow(true);
+    } else {
+      setShow(false);
     }
 
     if (local.trigger !== trigger()) {

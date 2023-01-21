@@ -1,4 +1,4 @@
-import {SolSelect} from '@sol-select';
+import {SolSelect, Option} from '@sol-select';
 
 export default function Home() {
   return (
@@ -9,13 +9,13 @@ export default function Home() {
 
       <section class="w-[400px] mx-auto flex flex-col gap-2">
         <SolSelect placeholder="Placeholder">
-          <SolSelect.Option value="One">One</SolSelect.Option>
-          <SolSelect.Option value="Two">Two</SolSelect.Option>
-          <SolSelect.Option value="Three">Three</SolSelect.Option>
-          <SolSelect.Option value="Four">Four</SolSelect.Option>
-          <SolSelect.Option value="Five">Five</SolSelect.Option>
-          <SolSelect.Option value="Six">Six</SolSelect.Option>
-          <SolSelect.Option value="Seven">Seven</SolSelect.Option>
+          <Option value="One">One</Option>
+          <Option value="Two">Two</Option>
+          <Option value="Three">Three</Option>
+          <Option value="Four">Four</Option>
+          <Option value="Five">Five</Option>
+          <Option value="Six">Six</Option>
+          <Option value="Seven">Seven</Option>
         </SolSelect>
         <SolSelect placeholder="Disabled" disabled></SolSelect>
       </section>
