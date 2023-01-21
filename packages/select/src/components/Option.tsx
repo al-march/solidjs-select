@@ -1,8 +1,9 @@
 import {useSolSelect} from '../Select';
-import {JSX, mergeProps, splitProps} from 'solid-js';
+import {createMemo, JSX, mergeProps, Show, splitProps} from 'solid-js';
 
 type Props = {
   value: string;
+  empty?: boolean;
 } & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Option = (props: Props) => {
@@ -10,10 +11,15 @@ export const Option = (props: Props) => {
   const pr = mergeProps({value: '', class: '', classList: {}}, props);
   const [local, others] = splitProps(pr, [
     'type',
+    'empty',
+    'disabled',
     'value',
     'class',
     'classList',
   ]);
+
+  const isShow = createMemo(() => !ctx.state.value.has(local.value));
+  const isDisabled = createMemo(() => local.disabled || local.empty);
 
   function check(e: Event) {
     e.preventDefault();
@@ -21,16 +27,20 @@ export const Option = (props: Props) => {
   }
 
   return (
-    <button
-      class="sol-select-option"
-      classList={{
-        [local.class]: !!local.class,
-        ...local.classList,
-      }}
-      type="button"
-      value={local.value}
-      onClick={check}
-      {...others}
-    />
+    <Show when={isShow()} keyed>
+      <button
+        class="sol-select-option"
+        classList={{
+          [local.class]: !!local.class,
+          empty: !!local.empty,
+          ...local.classList,
+        }}
+        type="button"
+        value={local.value}
+        onClick={check}
+        disabled={isDisabled()}
+        {...others}
+      />
+    </Show>
   );
 };

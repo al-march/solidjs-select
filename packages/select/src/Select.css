@@ -31,7 +31,7 @@
 }
 
 .sol-select-area input {
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   outline: none;
 }
@@ -44,7 +44,6 @@
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 19px;
 }
 
 .sol-select-value {
@@ -57,6 +56,10 @@
   gap: 6px;
 
   flex-wrap: wrap;
+}
+
+.sol-select-input {
+  flex: 1;
 }
 
 .sol-select-indicator {
@@ -88,7 +91,6 @@
 .sol-select-dropdown {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 400px;
 
   background: #FCFCFC;
@@ -103,7 +105,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
+  gap: 4px;
   width: 100%;
 }
 
@@ -111,7 +113,6 @@
   background: #FCFCFC;
   border-radius: 6px;
   width: 100%;
-  min-height: 34px;
   padding: 12px;
 
   display: flex;
@@ -127,6 +128,16 @@
 
 .sol-select-option:active {
   background: #A3DDFF;
+}
+
+.sol-select-option:disabled {
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.sol-select-option.empty {
+  justify-content: center;
+  text-align: center;
 }
 
 .sol-select-reset {

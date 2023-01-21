@@ -1,8 +1,11 @@
 import {createPopper} from '../hooks';
+import {Option} from './Option';
 import {Instance, Placement} from '@popperjs/core';
 import {
   Accessor,
+  children,
   createEffect,
+  createMemo,
   createSignal,
   JSX,
   mergeProps,
@@ -54,6 +57,11 @@ export const Dropdown = (props: Props) => {
   const [show, setShow] = createSignal(local.show);
   const [trigger, setTrigger] = createSignal(local.trigger);
   const [dropdown, setRef] = createSignal<HTMLElement>();
+
+  const list = children(() => local.children);
+  const hasOptions = createMemo(
+    () => !!((list() as HTMLElement[]) || []).filter(Boolean).length
+  );
 
   createEffect(() => {
     if (local.show) {
@@ -117,7 +125,14 @@ export const Dropdown = (props: Props) => {
           {...others}
         >
           {local.show && (
-            <div class="sol-select-dropdown-options">{local.children}</div>
+            <div class="sol-select-dropdown-options">
+              <Show when={!hasOptions()} keyed>
+                <Option value="" empty>
+                  No Options
+                </Option>
+              </Show>
+              {local.children}
+            </div>
           )}
         </div>
       </Portal>

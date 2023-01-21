@@ -189,14 +189,16 @@ const Select = (props: SolSelectProps) => {
             onRemove={removeValue}
           />
 
-          <input
-            ref={el => setState('inputRef', el)}
-            type="text"
-            onFocus={onFocus}
-            onBlur={onBlur}
-            placeholder={!state.value.size ? local.placeholder : ''}
-            disabled={local.disabled}
-          />
+          <div class="sol-select-input">
+            <input
+              ref={el => setState('inputRef', el)}
+              type="text"
+              onFocus={onFocus}
+              onBlur={onBlur}
+              placeholder={!state.value.size ? local.placeholder : ''}
+              disabled={local.disabled}
+            />
+          </div>
         </div>
         <div class="sol-select-indicator">
           <div class="sol-select-state">
