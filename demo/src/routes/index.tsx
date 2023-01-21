@@ -1,4 +1,6 @@
 import {SolSelect, Option} from '@sol-select';
+import {For} from 'solid-js';
+import {COUNTRIES} from '~/mock/countries';
 
 export default function Home() {
   return (
@@ -20,14 +22,12 @@ export default function Home() {
           <Option value="Seven">Seven</Option>
         </SolSelect>
 
-        <SolSelect placeholder="Placeholder" multiple>
-          <Option value="One">One</Option>
-          <Option value="Two">Two</Option>
-          <Option value="Three">Three</Option>
-          <Option value="Four">Four</Option>
-          <Option value="Five">Five</Option>
-          <Option value="Six">Six</Option>
-          <Option value="Seven">Seven</Option>
+        <SolSelect placeholder="Countries" multiple>
+          <For each={COUNTRIES}>
+            {country => (
+              <Option value={`${country['alpha-3']} - ${country.name}`} />
+            )}
+          </For>
         </SolSelect>
       </section>
     </main>
