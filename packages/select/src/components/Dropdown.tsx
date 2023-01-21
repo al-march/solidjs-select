@@ -19,6 +19,7 @@ import {Portal} from 'solid-js/web';
 type Props = {
   trigger?: HTMLElement;
   show?: boolean;
+  search?: string;
   onOpen?: () => void;
   onClose?: () => void;
   placement?: Placement;
@@ -48,6 +49,7 @@ export const Dropdown = (props: Props) => {
     'offset',
     'trigger',
     'value',
+    'search',
     'class',
     'classList',
     'children',
@@ -59,9 +61,22 @@ export const Dropdown = (props: Props) => {
   const [dropdown, setRef] = createSignal<HTMLElement>();
 
   const list = children(() => local.children);
-  const hasOptions = createMemo(
-    () => !!((list() as HTMLElement[]) || []).filter(Boolean).length
-  );
+
+  const filteredList = createMemo(() => {
+    return ((list() as HTMLButtonElement[]) || [])
+      .filter(Boolean)
+      .filter(filterButton);
+  });
+
+  function filterButton(btn: HTMLButtonElement) {
+    if (!local.search?.length) {
+      return true;
+    }
+
+    return btn.value.toLowerCase().includes(local.search);
+  }
+
+  const hasOptions = createMemo(() => !!filteredList().length);
 
   createEffect(() => {
     if (local.show) {
@@ -131,7 +146,8 @@ export const Dropdown = (props: Props) => {
                   No Options
                 </Option>
               </Show>
-              {local.children}
+
+              {filteredList()}
             </div>
           )}
         </div>

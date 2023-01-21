@@ -18,6 +18,7 @@ import {createStore} from 'solid-js/store';
 
 type SolSelectState = {
   value: Set<string>;
+  search: string;
 
   focused: boolean;
   disabled: boolean;
@@ -70,6 +71,7 @@ const Select = (props: SolSelectProps) => {
     value: new Set(),
     focused: false,
     disabled: !!local.disabled,
+    search: '',
 
     get opened() {
       return this.focused;
@@ -97,6 +99,7 @@ const Select = (props: SolSelectProps) => {
     }
 
     setState('focused', false);
+    resetInput();
     if (typeof local.onBlur === 'function') {
       local.onBlur(e);
     }
@@ -108,6 +111,14 @@ const Select = (props: SolSelectProps) => {
 
   function blurInput() {
     state.inputRef?.blur();
+  }
+
+  function resetInput() {
+    const input = state.inputRef;
+    if (input) {
+      input.value = '';
+      setState('search', '');
+    }
   }
 
   function select(v: string) {
@@ -139,6 +150,10 @@ const Select = (props: SolSelectProps) => {
       setState('value', new Set(set));
       focusInput();
     });
+  }
+
+  function onSearch(search = '') {
+    setState('search', search.toLowerCase());
   }
 
   function isPartOfDropdown(el: unknown) {
@@ -195,6 +210,7 @@ const Select = (props: SolSelectProps) => {
               type="text"
               onFocus={onFocus}
               onBlur={onBlur}
+              onInput={e => onSearch(e.currentTarget.value)}
               placeholder={!state.value.size ? local.placeholder : ''}
               disabled={local.disabled}
             />
@@ -228,6 +244,7 @@ const Select = (props: SolSelectProps) => {
         trigger={state.selectRef}
         show={state.opened}
         value={selected}
+        search={state.search}
         onOpen={local.onOpen}
         onClose={local.onClose}
       >

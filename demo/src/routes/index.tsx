@@ -8,6 +8,8 @@ export default function Home() {
       </h1>
 
       <section class="w-[400px] mx-auto flex flex-col gap-2">
+        <SolSelect placeholder="Disabled" disabled></SolSelect>
+
         <SolSelect placeholder="Placeholder">
           <Option value="One">One</Option>
           <Option value="Two">Two</Option>
@@ -27,8 +29,6 @@ export default function Home() {
           <Option value="Six">Six</Option>
           <Option value="Seven">Seven</Option>
         </SolSelect>
-
-        <SolSelect placeholder="Disabled" disabled></SolSelect>
       </section>
     </main>
   );
