@@ -16,8 +16,12 @@
   transition: all .3s ease;
 }
 
-.sol-select:hover {
+.sol-select-area:hover {
   border: 1px solid #B3B3B3;
+}
+
+.sol-select-area:hover .sol-select-icon {
+  color: #B3B3B3;
 }
 
 .sol-select-area.disabled {
@@ -28,6 +32,10 @@
 .sol-select-area.focused {
   background: #FFFFFF;
   border: 1px solid #2684FF;
+}
+
+.sol-select-area.focused .sol-select-icon {
+  color: #333;
 }
 
 .sol-select-area input {
@@ -79,6 +87,13 @@
 
   width: 30px;
   position: relative;
+  color: #ddd;
+
+  transition: .3s ease all;
+}
+
+.sol-select-icon:hover {
+  color: #333;
 }
 
 .sol-select-divider {
@@ -138,6 +153,7 @@
 .sol-select-option.empty {
   justify-content: center;
   text-align: center;
+  color: #999;
 }
 
 .sol-select-reset {

@@ -144,12 +144,10 @@ const Select = (props: SolSelectProps) => {
   }
 
   function removeValue(value: string) {
-    setTimeout(() => {
-      const set = state.value;
-      set.delete(value);
-      setState('value', new Set(set));
-      focusInput();
-    });
+    const set = state.value;
+    set.delete(value);
+    setState('value', new Set(set));
+    focusInput();
   }
 
   function onSearch(search = '') {
@@ -157,14 +155,14 @@ const Select = (props: SolSelectProps) => {
   }
 
   function isPartOfDropdown(el: unknown) {
-    if (el instanceof HTMLElement) {
+    if (el instanceof Node) {
       return state.dropdownRef?.contains(el);
     }
     return false;
   }
 
   function isPartOfSelect(el: unknown) {
-    if (el instanceof HTMLElement) {
+    if (el instanceof Node) {
       return state.selectRef?.contains(el);
     }
     return false;
