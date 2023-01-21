@@ -65,22 +65,24 @@
   align-items: center;
   justify-content: center;
 
-  width: 38px;
   flex-grow: 0;
   align-self: stretch;
 }
 
-.sol-select-indicator:before {
-  content: '';
+.sol-select-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  position: relative;
+}
+
+.sol-select-divider {
   height: calc(100% - 10px);
   width: 1px;
   background: #CCCCCC;
-  margin: auto;
-
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  margin: auto 0 auto 8px;
 }
 
 .sol-select-dropdown {
@@ -125,4 +127,17 @@
 
 .sol-select-option:active {
   background: #A3DDFF;
+}
+
+.sol-select-reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+
+  transition: .3s ease all;
+}
+
+.sol-select-reset:hover {
+  color: #333;
 }

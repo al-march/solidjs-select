@@ -1,5 +1,6 @@
 import './Select.css';
 import {ArrowIcon} from './components/ArrowIcon';
+import {CloseIcon} from './components/CloseIcon';
 import {Dropdown} from './components/Dropdown';
 import {Option} from './components/Option';
 import {SelectArea} from './components/SelectArea';
@@ -10,6 +11,7 @@ import {
   createMemo,
   JSX,
   mergeProps,
+  Show,
   splitProps,
   useContext,
 } from 'solid-js';
@@ -105,6 +107,10 @@ const Select = (props: SolSelectProps) => {
     state.inputRef?.focus();
   }
 
+  function blurInput() {
+    state.inputRef?.blur();
+  }
+
   function select(v: string) {
     let set = new Set<string>();
 
@@ -112,7 +118,7 @@ const Select = (props: SolSelectProps) => {
       set = new Set(state.value);
       focusInput();
     } else {
-      state.inputRef?.blur();
+      blurInput();
     }
 
     set.add(v);
@@ -194,7 +200,25 @@ const Select = (props: SolSelectProps) => {
           />
         </div>
         <div class="sol-select-indicator">
-          <ArrowIcon />
+          <div class="sol-select-state">
+            <Show when={!!selected().length} keyed>
+              <button
+                class="sol-select-reset"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  reset();
+                  blurInput();
+                }}
+              >
+                <CloseIcon />
+              </button>
+            </Show>
+          </div>
+          <div class="sol-select-divider" />
+          <div class="sol-select-icon">
+            <ArrowIcon />
+          </div>
         </div>
       </SelectArea>
 
