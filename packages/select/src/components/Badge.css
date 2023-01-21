@@ -1,0 +1,35 @@
+.badge {
+  display: flex;
+  align-items: stretch;
+
+  background: #E6E6E6;
+  border-radius: 2px;
+}
+
+.badge-label {
+  padding: 3px 6px;
+}
+
+.badge-action {
+  flex: 1;
+
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  width: 22px;
+  cursor: pointer;
+  transition: .3s ease all;
+}
+
+.badge-action button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-action:hover {
+  background: #FFBDAD;
+  color: #DE350B;
+}
