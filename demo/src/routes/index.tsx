@@ -17,6 +17,17 @@ export default function Home() {
           <Option value="Six">Six</Option>
           <Option value="Seven">Seven</Option>
         </SolSelect>
+
+        <SolSelect placeholder="Placeholder" multiple>
+          <Option value="One">One</Option>
+          <Option value="Two">Two</Option>
+          <Option value="Three">Three</Option>
+          <Option value="Four">Four</Option>
+          <Option value="Five">Five</Option>
+          <Option value="Six">Six</Option>
+          <Option value="Seven">Seven</Option>
+        </SolSelect>
+
         <SolSelect placeholder="Disabled" disabled></SolSelect>
       </section>
     </main>

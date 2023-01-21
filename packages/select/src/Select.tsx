@@ -1,19 +1,16 @@
 import './Select.css';
 import {ArrowIcon} from './components/ArrowIcon';
-import {Badge} from './components/Badge';
 import {Dropdown} from './components/Dropdown';
 import {Option} from './components/Option';
 import {SelectArea} from './components/SelectArea';
+import {SelectValue} from './components/SelectValue';
 import {PropFocusEvent} from './types/event.type';
 import {
   createContext,
   createMemo,
-  For,
   JSX,
-  Match,
   mergeProps,
   splitProps,
-  Switch,
   useContext,
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
@@ -112,7 +109,12 @@ const Select = (props: SolSelectProps) => {
     const set = new Set<string>();
     set.add(v);
     setState('value', set);
-    focusInput();
+
+    if (local.multiple) {
+      focusInput();
+    } else {
+      state.inputRef?.blur();
+    }
 
     if (typeof local.onSelect === 'function') {
       local.onSelect(v);
@@ -121,6 +123,15 @@ const Select = (props: SolSelectProps) => {
 
   function reset() {
     setState('value', new Set());
+  }
+
+  function removeValue(value: string) {
+    setTimeout(() => {
+      const set = state.value;
+      set.delete(value);
+      setState('value', new Set(set));
+      focusInput();
+    });
   }
 
   function isPartOfDropdown(el: unknown) {
@@ -135,15 +146,6 @@ const Select = (props: SolSelectProps) => {
       return state.selectRef?.contains(el);
     }
     return false;
-  }
-
-  function removeValue(value: string) {
-    setTimeout(() => {
-      const set = state.value;
-      set.delete(value);
-      setState('value', new Set(set));
-      focusInput();
-    });
   }
 
   return (
@@ -174,18 +176,12 @@ const Select = (props: SolSelectProps) => {
         {...others}
       >
         <div class="sol-select-value">
-          <Switch>
-            <Match when={!local.multiple} keyed>
-              <span>{selected()[0]}</span>
-            </Match>
-            <Match when={local.multiple} keyed>
-              <For each={selected()}>
-                {value => (
-                  <Badge onRemove={() => removeValue(value)}>{value}</Badge>
-                )}
-              </For>
-            </Match>
-          </Switch>
+          <SelectValue
+            values={selected()}
+            multiple={local.multiple}
+            onRemove={removeValue}
+          />
+
           <input
             ref={el => setState('inputRef', el)}
             type="text"
