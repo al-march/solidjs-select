@@ -16,6 +16,7 @@ export const Option = (props: Props) => {
     'value',
     'class',
     'classList',
+    'children',
   ]);
 
   const isShow = createMemo(() => !ctx.state.value.has(local.value));
@@ -40,7 +41,9 @@ export const Option = (props: Props) => {
         onClick={check}
         disabled={isDisabled()}
         {...others}
-      />
+      >
+        {local.children || local.value}
+      </button>
     </Show>
   );
 };
