@@ -106,7 +106,6 @@
 .sol-select-dropdown {
   display: flex;
   flex-direction: column;
-  width: 400px;
 
   background: #FCFCFC;
   box-shadow: 0 0 8px rgba(34, 34, 34, 0.1);

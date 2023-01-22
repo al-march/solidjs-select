@@ -40,6 +40,8 @@ type SolSelectProps = {
   placeholder?: string;
   disabled?: boolean;
   multiple?: boolean;
+  // Width of dropdown according SelectArea
+  dropdownAsSelect?: boolean;
 
   onSelect?: (v: string) => void;
   onOpen?: () => void;
@@ -52,6 +54,7 @@ const Select = (props: SolSelectProps) => {
     'placeholder',
     'disabled',
     'multiple',
+    'dropdownAsSelect',
 
     'onFocus',
     'onBlur',
@@ -245,6 +248,12 @@ const Select = (props: SolSelectProps) => {
         search={state.search}
         onOpen={local.onOpen}
         onClose={local.onClose}
+        style={{
+          'min-width': `${state.selectRef?.offsetWidth}px`,
+          'max-width': local.dropdownAsSelect
+            ? `${state.selectRef?.offsetWidth}px`
+            : 'auto',
+        }}
       >
         {local.children}
       </Dropdown>

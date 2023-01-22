@@ -22,7 +22,7 @@ export default function Home() {
           <Option value="Seven">Seven</Option>
         </SolSelect>
 
-        <SolSelect placeholder="Countries" multiple>
+        <SolSelect placeholder="Countries" multiple dropdownAsSelect>
           <For each={COUNTRIES}>
             {country => (
               <Option value={`${country['alpha-3']} - ${country.name}`} />
