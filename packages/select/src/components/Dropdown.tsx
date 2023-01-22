@@ -1,5 +1,6 @@
 import {createPopper} from '../hooks';
 import {Option} from './Option';
+import {Scale} from './transitions';
 import {Instance, Placement} from '@popperjs/core';
 import {
   Accessor,
@@ -81,8 +82,6 @@ export const Dropdown = (props: Props) => {
   createEffect(() => {
     if (local.show) {
       setShow(true);
-    } else {
-      setShow(false);
     }
 
     if (local.trigger !== trigger()) {
@@ -139,17 +138,19 @@ export const Dropdown = (props: Props) => {
           }}
           {...others}
         >
-          {local.show && (
-            <div class="sol-select-dropdown-options">
-              <Show when={!hasOptions()} keyed>
-                <Option value="" empty>
-                  No Options
-                </Option>
-              </Show>
+          <Scale appear onExitDone={() => setShow(false)}>
+            {local.show && (
+              <div class="sol-select-dropdown-options">
+                <Show when={!hasOptions()} keyed>
+                  <Option value="" empty>
+                    No Options
+                  </Option>
+                </Show>
 
-              {filteredList()}
-            </div>
-          )}
+                {filteredList()}
+              </div>
+            )}
+          </Scale>
         </div>
       </Portal>
     </Show>
