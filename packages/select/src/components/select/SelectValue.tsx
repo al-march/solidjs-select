@@ -1,4 +1,4 @@
-import {Badge} from './Badge';
+import {Badge} from '../badge';
 import {createMemo, For, Match, Show, Switch} from 'solid-js';
 
 type Props = {

@@ -1,2 +1,2 @@
 export * from './Select';
-export * from './components/Option';
+export * from './components/option';

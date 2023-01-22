@@ -1,4 +1,4 @@
-import {useSolSelect} from '../Select';
+import {useSolSelect} from '../../Select';
 import {createMemo, JSX, mergeProps, Show, splitProps} from 'solid-js';
 
 type Props = {

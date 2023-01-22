@@ -1,9 +1,8 @@
 import './Select.css';
-import {Dropdown} from './components/Dropdown';
-import {Option} from './components/Option';
-import {SelectArea} from './components/SelectArea';
-import {SelectValue} from './components/SelectValue';
+import {Dropdown} from './components/dropdown';
 import {ArrowIcon, CloseIcon} from './components/icons';
+import {Option} from './components/option';
+import {SelectArea, SelectValue} from './components/select';
 import {PropFocusEvent} from './types/event.type';
 import {
   createContext,

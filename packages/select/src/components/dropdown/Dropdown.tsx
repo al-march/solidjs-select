@@ -1,6 +1,6 @@
-import {createPopper} from '../hooks';
-import {Option} from './Option';
-import {Scale} from './transitions';
+import {createPopper} from '../../hooks';
+import {Option} from '../option';
+import {Scale} from '../transitions';
 import {Instance, Placement} from '@popperjs/core';
 import {
   Accessor,

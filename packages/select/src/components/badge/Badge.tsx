@@ -1,5 +1,5 @@
+import {CloseIcon} from '../icons';
 import './Badge.css';
-import {CloseIcon} from './icons';
 import {JSX, mergeProps, splitProps} from 'solid-js';
 
 type Props = {
