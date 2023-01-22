@@ -64,7 +64,13 @@ export const Dropdown = (props: Props) => {
   const list = children(() => local.children);
 
   const filteredList = createMemo(() => {
-    return ((list() as HTMLButtonElement[]) || [])
+    let options = list() || [];
+
+    if (!(options instanceof Array)) {
+      options = [options];
+    }
+
+    return (options as HTMLButtonElement[])
       .filter(Boolean)
       .filter(filterButton);
   });
