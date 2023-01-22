@@ -1,4 +1,6 @@
 import {useSolSelect} from '../../Select';
+import {TestID} from '../../testID';
+import {PropClickEvent} from '../../types/event.type';
 import {createMemo, JSX, mergeProps, Show, splitProps} from 'solid-js';
 
 type Props = {
@@ -14,6 +16,7 @@ export const Option = (props: Props) => {
     'empty',
     'disabled',
     'value',
+    'onClick',
     'class',
     'classList',
     'children',
@@ -22,14 +25,19 @@ export const Option = (props: Props) => {
   const isShow = createMemo(() => !ctx.state.value.has(local.value));
   const isDisabled = createMemo(() => local.disabled || local.empty);
 
-  function check(e: Event) {
+  function check(e: PropClickEvent<HTMLButtonElement>) {
     e.preventDefault();
     ctx.select(local.value);
+
+    if (typeof local.onClick === 'function') {
+      local.onClick(e);
+    }
   }
 
   return (
     <Show when={isShow()} keyed>
       <button
+        data-testid={TestID.OPTION}
         class="sol-select-option"
         classList={{
           [local.class]: !!local.class,
