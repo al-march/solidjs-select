@@ -3,4 +3,5 @@ export enum TestID {
   OPTION = 'option',
   DROPDOWN = 'dropdown',
   BADGE = 'badge',
+  BADGE_ACTION = 'badge-action',
 }

@@ -20,7 +20,9 @@ export const SelectValue = (props: Props) => {
         <Match when={props.multiple} keyed>
           <For each={props.values}>
             {value => (
-              <Badge onRemove={() => props.onRemove?.(value)}>{value}</Badge>
+              <Badge hasAction onRemove={() => props.onRemove?.(value)}>
+                {value}
+              </Badge>
             )}
           </For>
         </Match>
