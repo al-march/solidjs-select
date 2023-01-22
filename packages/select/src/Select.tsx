@@ -42,9 +42,11 @@ type SolSelectProps = {
   // Width of dropdown according SelectArea
   dropdownAsSelect?: boolean;
 
-  onSelect?: (v: string) => void;
   onOpen?: () => void;
   onClose?: () => void;
+  onSearch?: (search: string) => void;
+  onSelect?: (value: string) => void;
+  onChange?: (value: string | string[]) => void;
 } & JSX.HTMLAttributes<HTMLDivElement>;
 
 const Select = (props: SolSelectProps) => {
@@ -59,9 +61,11 @@ const Select = (props: SolSelectProps) => {
     'onBlur',
     'onClick',
 
-    'onSelect',
     'onOpen',
     'onClose',
+    'onSearch',
+    'onSelect',
+    'onChange',
 
     'classList',
     'class',
@@ -120,6 +124,7 @@ const Select = (props: SolSelectProps) => {
     if (input) {
       input.value = '';
       setState('search', '');
+      onSearchChange();
     }
   }
 
@@ -134,7 +139,7 @@ const Select = (props: SolSelectProps) => {
     }
 
     set.add(v);
-    setState('value', set);
+    setValue(set);
 
     if (typeof local.onSelect === 'function') {
       local.onSelect(v);
@@ -142,18 +147,40 @@ const Select = (props: SolSelectProps) => {
   }
 
   function reset() {
-    setState('value', new Set());
+    setValue(new Set());
   }
 
   function removeValue(value: string) {
     const set = state.value;
     set.delete(value);
-    setState('value', new Set(set));
+    setValue(new Set(set));
     focusInput();
   }
 
   function onSearch(search = '') {
     setState('search', search.toLowerCase());
+    onSearchChange();
+  }
+
+  function setValue(value: Set<string>) {
+    setState('value', value);
+    onValueChange();
+  }
+
+  function onValueChange() {
+    if (typeof local.onChange === 'function') {
+      if (local.multiple) {
+        local.onChange(Array.from(state.value));
+      } else {
+        local.onChange(Array.from(state.value)[0]);
+      }
+    }
+  }
+
+  function onSearchChange() {
+    if (typeof local.onSearch === 'function') {
+      local.onSearch(state.search);
+    }
   }
 
   function isPartOfDropdown(el: unknown) {
