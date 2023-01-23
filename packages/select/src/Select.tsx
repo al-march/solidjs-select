@@ -226,13 +226,11 @@ const Select = (props: SolSelectProps) => {
         }}
         {...others}
       >
-        <div class="sol-select-value">
-          <SelectValue
-            values={selected()}
-            multiple={local.multiple}
-            onRemove={removeValue}
-          />
-
+        <SelectValue
+          values={selected()}
+          multiple={local.multiple}
+          onRemove={removeValue}
+        >
           <div class="sol-select-input">
             <input
               ref={el => setState('inputRef', el)}
@@ -244,7 +242,8 @@ const Select = (props: SolSelectProps) => {
               disabled={local.disabled}
             />
           </div>
-        </div>
+        </SelectValue>
+
         <div class="sol-select-indicator">
           <div class="sol-select-state">
             <Show when={!!selected().length} keyed>
