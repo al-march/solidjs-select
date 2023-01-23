@@ -1,3 +1,4 @@
+import {TestID} from '../../testID';
 import {JSX, mergeProps, splitProps} from 'solid-js';
 
 type Props = {
@@ -19,6 +20,7 @@ export const SelectArea = (props: Props) => {
 
   return (
     <div
+      data-testid={TestID.SELECT_AREA}
       class="sol-select-area"
       classList={{
         [local.class]: !!local.class,
