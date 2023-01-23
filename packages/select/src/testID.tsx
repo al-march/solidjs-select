@@ -1,5 +1,7 @@
 export enum TestID {
   SELECT = 'select',
+  SELECT_AREA = 'select-area',
+  SELECT_VALUE = 'select-value',
   OPTION = 'option',
   DROPDOWN = 'dropdown',
   BADGE = 'badge',
