@@ -81,7 +81,9 @@ export const Dropdown = (props: Props) => {
       return true;
     }
 
-    return btn.value.toLowerCase().includes(local.search);
+    return (btn.textContent || btn.innerText || '')
+      .toLowerCase()
+      .includes(local.search);
   }
 
   const hasOptions = createMemo(() => !!filteredList().length);
