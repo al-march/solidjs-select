@@ -118,4 +118,15 @@ describe('Option', function () {
     fireEvent.click(GetOption());
     expect(onClick).toBeCalled();
   });
+  test('should show subtext', () => {
+    const subtext = 'sub-text';
+    render(() => (
+      <SolSelect show>
+        <Option value={'value'} subtext={subtext} />
+      </SolSelect>
+    ));
+
+    expect(Get(TestID.OPTION_SUBTEXT)).toBeInTheDocument();
+    expect(Get(TestID.OPTION_SUBTEXT)).toHaveTextContent(subtext);
+  });
 });

@@ -1,11 +1,19 @@
 import {useSolSelect} from '../../Select';
 import {TestID} from '../../testID';
 import {PropClickEvent} from '../../types/event.type';
-import {createMemo, JSX, mergeProps, Show, splitProps} from 'solid-js';
+import {
+  createMemo,
+  JSX,
+  JSXElement,
+  mergeProps,
+  Show,
+  splitProps,
+} from 'solid-js';
 
 type Props = {
   value: string;
   empty?: boolean;
+  subtext?: JSXElement;
 } & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Option = (props: Props) => {
@@ -14,6 +22,7 @@ export const Option = (props: Props) => {
   const [local, others] = splitProps(pr, [
     'type',
     'empty',
+    'subtext',
     'disabled',
     'value',
     'onClick',
@@ -50,7 +59,18 @@ export const Option = (props: Props) => {
         disabled={isDisabled()}
         {...others}
       >
-        {local.children || local.value}
+        <span class="sol-select-option__title">
+          {local.children || local.value}
+        </span>
+
+        <Show when={!!local.subtext} keyed>
+          <span
+            data-testid={TestID.OPTION_SUBTEXT}
+            class="sol-select-option__subtext"
+          >
+            {local.subtext}
+          </span>
+        </Show>
       </button>
     </Show>
   );

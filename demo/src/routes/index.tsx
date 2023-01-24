@@ -22,10 +22,13 @@ export default function Home() {
           <Option value="Seven">Seven</Option>
         </SolSelect>
 
-        <SolSelect placeholder="Countries" multiple dropdownAsSelect>
+        <SolSelect placeholder="Countries" multiple dropdownAsSelect show>
           <For each={COUNTRIES}>
             {country => (
-              <Option value={`${country['alpha-3']} - ${country.name}`} />
+              <Option
+                value={`${country['alpha-3']} - ${country.name}`}
+                subtext={`${country.region} - ${country['sub-region']}`}
+              />
             )}
           </For>
         </SolSelect>
