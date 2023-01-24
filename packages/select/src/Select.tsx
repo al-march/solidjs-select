@@ -15,7 +15,7 @@ import {
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
 
-type SolSelectState = {
+export type SolSelectState = {
   value: Set<string>;
   search: string;
 
@@ -292,11 +292,11 @@ export const SolSelect = Object.assign(Select, {
   Option,
 });
 
-type SolSelectCtx = {
+export type SolSelectCtx = {
   state: SolSelectState;
 } & SolSelectActions;
 
-const SolSelectCtx = createContext<SolSelectCtx>();
+export const SolSelectCtx = createContext<SolSelectCtx>();
 
 export const useSolSelect = () => {
   const ctx = useContext(SolSelectCtx);

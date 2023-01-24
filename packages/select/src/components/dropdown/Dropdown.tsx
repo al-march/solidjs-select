@@ -1,4 +1,5 @@
 import {createPopper} from '../../hooks';
+import {TestID} from '../../testID';
 import {Option} from '../option';
 import {Scale} from '../transitions';
 import {Instance, Placement} from '@popperjs/core';
@@ -129,10 +130,23 @@ export const Dropdown = (props: Props) => {
     });
   }
 
+  function onOpenEnd() {
+    if (typeof local.onOpen === 'function') {
+      local.onOpen();
+    }
+  }
+
+  function onCloseEnd() {
+    if (typeof local.onClose === 'function') {
+      local.onClose();
+    }
+  }
+
   return (
     <Show when={show()} keyed>
       <Portal>
         <div
+          data-testid={TestID.DROPDOWN}
           class="sol-select-dropdown"
           tabIndex={0}
           ref={el => {
@@ -140,11 +154,21 @@ export const Dropdown = (props: Props) => {
             initPopper();
           }}
           classList={{
+            [local.class]: !!local.class,
             ...local.classList,
           }}
           {...others}
         >
-          <Scale appear onExitDone={() => setShow(false)}>
+          <Scale
+            appear
+            onEnterDone={() => {
+              onOpenEnd();
+            }}
+            onExitDone={() => {
+              setShow(false);
+              onCloseEnd();
+            }}
+          >
             {local.show && (
               <div class="sol-select-dropdown-options">
                 <Show when={!hasOptions()} keyed>
